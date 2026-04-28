@@ -8,17 +8,13 @@ Damit Grok Code bei diesem längeren Projekt NIE den Context verliert:
 4. Bei jeder neuen Grok-Code-Session: "Lese PLAN.md und aktuelles Milestone"
 
 ## CURRENT MILESTONE (immer aktuell halten!)
-**Milestone 2 – Testing & Polish** ✅ (heute fertig)
-- Dependencies hinzugefügt (Tailwind CSS + Chart.js via CDN)
-- JavaScript konsolidiert in script.js, Inline-Script entfernt
-- Input-Validation hinzugefügt
-- Infinite Loop in extraYears verhindert (cap bei 20 Jahren)
-- Chart implementiert (Line-Chart mit Projektion vs. Ziel)
-- Reset-Button hinzugefügt
-- Copy-to-Clipboard Button für Ergebnis
-- Voice poliert (mehr Empathie für Familien)
-- Mobile-Responsiveness geprüft (Tailwind)
-- 4 Test-Szenarien validiert
+**Milestone 2 – ETF-Empfehlung hinzugefügt** ✅ (heute fertig)
+- 4. Empfehlung ergänzt: Dynamischer ETF-Sparplan mit 8,5% Rendite
+- 4 diversifizierte ETFs (25% je): S&P 500 / Nasdaq 100 / MSCI World / US Treasuries
+- Monatliche ETF-Sparrate basierend auf Versorgungslücke berechnet
+- Projektion zeigt, wie Ziel erreicht wird
+- Grid auf 2x2 Layout aktualisiert
+- Alle Berechnungen validiert
 
 **Milestone 3 – Final Delivery** (nächstes Ziel)
 - 100-Word Write-up

@@ -68,6 +68,14 @@ function renderResults(age, targetAge, target, projected, behind, monthlySavings
 
     const comboMonthly = Math.round(extraMonthly * 0.45);
 
+    // ETF-Sparplan berechnung (8,5% Rendite, 4 diversifizierte ETFs à 25%)
+    const etfRenditeJaehrlich = 0.085;
+    const etfRenditeMonatlich = Math.pow(1 + etfRenditeJaehrlich, 1/12) - 1;
+    const etfMonths = years * 12;
+    const etfMonthlyFactor = (Math.pow(1 + etfRenditeMonatlich, etfMonths) - 1) / etfRenditeMonatlich;
+    const etfMonthlyRate = Math.round(behind / etfMonthlyFactor);
+    const etfProjection = behind; // Mit diesem Sparplan wird die Lücke genau geschlossen
+
     html += `
       <div class="text-center">
         <div class="text-5xl font-bold text-rose-600">Ihr seid HINTERHER</div>
@@ -76,8 +84,8 @@ function renderResults(age, targetAge, target, projected, behind, monthlySavings
       </div>
 
       <div class="mt-12">
-        <p class="font-medium text-lg text-stone-700">Aber keine Panik – ich weiß, mit zwei Kindern und Hypothek fühlt sich das gerade nicht leicht an. Hier sind drei echte Wege, wie ihr das noch schafft:</p>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+        <p class="font-medium text-lg text-stone-700">Aber keine Panik – ich weiß, mit zwei Kindern und Hypothek fühlt sich das gerade nicht leicht an. Hier sind vier echte Wege, wie ihr das noch schafft:</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
           <div class="bg-rose-50 border border-rose-200 rounded-2xl p-6 text-center">
             <p class="font-semibold">Mehr sparen</p>
             <p class="text-4xl font-bold text-rose-600 mt-3">+ €${extraMonthly.toLocaleString('de-DE')}</p>
@@ -90,7 +98,15 @@ function renderResults(age, targetAge, target, projected, behind, monthlySavings
           </div>
           <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-6 text-center">
             <p class="font-semibold">Kombi (meist am einfachsten)</p>
-            <p class="text-4xl font-bold text-emerald-600 mt-3">+ €${comboMonthly.toLocaleString('de-DE')} / Monat + ${extraYears} Jahre</p>
+            <p class="text-4xl font-bold text-emerald-600 mt-3">+ €${comboMonthly.toLocaleString('de-DE')} / Monat</p>
+            <p class="text-sm text-stone-600">+ ${extraYears} Jahre</p>
+          </div>
+          <div class="bg-blue-50 border border-blue-200 rounded-2xl p-6 text-center">
+            <p class="font-semibold text-blue-900">ETF-Sparplan</p>
+            <p class="text-xs text-blue-700 mt-1 mb-3">25% S&P 500 / Nasdaq 100 / MSCI World / US Treasuries</p>
+            <p class="text-4xl font-bold text-blue-600 mt-2">€${etfMonthlyRate.toLocaleString('de-DE')}</p>
+            <p class="text-sm text-stone-600">monatlich</p>
+            <p class="text-xs text-blue-700 mt-2">→ Ziel erreicht (€${target.toLocaleString('de-DE')})</p>
           </div>
         </div>
       </div>`;
