@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marcus | Are We Okay?</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+    body { font-family: 'Inter', system-ui, sans-serif; background: #f8f1e3; }
+    .card { background: white; border-radius: 28px; box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.15); }
+  </style>
+</head>
+<body class="py-12 px-4">
+  <div class="max-w-2xl mx-auto">
+    <div class="card p-10">
+      <h1 class="text-4xl font-semibold text-stone-800">Hey, ich bin Marcus.</h1>
+      <p class="mt-3 text-2xl text-amber-700">Lass uns in unter 3 Minuten schauen, ob ihr für die Rente auf Kurs seid.</p>
+
+      <div id="form" class="mt-10 space-y-8"></div>
+
+      <div class="flex gap-4 mt-10">
+        <button onclick="calculate()" class="flex-1 bg-amber-600 hover:bg-amber-700 text-white py-5 rounded-3xl text-xl font-semibold">
+          Jetzt berechnen – Are we okay?
+        </button>
+        <button onclick="resetForm()" class="bg-stone-200 hover:bg-stone-300 text-stone-700 py-5 px-6 rounded-3xl text-xl font-semibold">
+          Zurücksetzen
+        </button>
+      </div>
+    </div>
+
+    <div id="results" class="hidden mt-8 card p-10"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
