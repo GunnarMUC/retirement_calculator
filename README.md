@@ -1,17 +1,33 @@
-# Artifact Sprint – Marcus Retirement Tool
+# Marcus Retirement Tool – Are We Okay?
+
+[![Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://your-gh-pages-link-here)
 
 **Was ist das?**  
-Ein interaktives Tool, das Marcus vor dem ersten Call an Prospects schickt. Sie geben 5 Zahlen ein und bekommen sofort die ehrliche Antwort auf „Are we okay?“ – genau in Marcus' Stimme.
+Ein interaktives Tool in Marcus' Stimme: Prospects geben 5 Zahlen ein (Alter, Rentenalter, Vermögen, Einkommen, Sparrate) und erhalten in <3 Min. die ehrliche Analyse – **Are we okay?** 🎯
 
-**So startest du lokal:**
-1. Doppelklick auf `index.html` → öffnet sich im Browser
-2. Oder in VS Code: Rechtsklick auf index.html → "Open with Live Server"
+**Features:**
+- Sofort-Feedback: Auf Kurs ✅ oder Hinterher ❌
+- Personalisierte Lösungen: Mehr sparen, länger arbeiten, Kombi, ETF-Sparplan (8.5% Rendite)
+- Interaktiver Chart mit Projektionen (7% konservativ)
+- Kopierbare Ergebnisse
+- Mobile-freundlich (Tailwind CSS)
+- Annahmen: 4% Regel (25x Ausgaben), 7% Rendite netto
 
-**Für Prospects teilen:**
-- Einfach die fertige `index.html` per E-Mail oder Google Drive schicken
-- Oder später auf GitHub Pages hochladen (1 Klick)
+**Schnellstart lokal:**
+1. `index.html` im Browser öffnen (Doppelklick)
+2. Oder VS Code Live Server
 
-**Grok Code Instructions:**  
-Immer zuerst PLAN.md lesen → Current Milestone checken → dann Code ändern.
+**Teilen mit Prospects:**
+- `index.html` per Mail/Drive
+- **GitHub Pages:** Repo → Settings → Pages → Deploy from branch `main` → Live-URL!
 
-Viel Spaß beim Bauen – wir gewinnen diese Challenge!
+**Tech Stack:**
+- Vanilla JS + Chart.js
+- Tailwind CSS (CDN)
+- Keine Dependencies, standalone HTML
+
+**Entwicklung:**
+- Lies `PLAN.md` für Milestones
+- Teste mit Defaults: Alter 48, Rentenalter 69, Vermögen 70k€, Einkommen 120k€/Jahr, Sparen 1500€/Monat
+
+Viel Spaß – Marcus gewinnt Leads! 🚀

@@ -50,7 +50,7 @@ function renderResults(age, targetAge, target, projected, behind, monthlySavings
   let html = `<h2 class="text-3xl font-semibold mb-6">Hey, hier ist dein Ergebnis:</h2>`;
 
   if (behind === 0) {
-    html += `<div class="text-center"><div class="text-5xl font-bold text-emerald-600">Ihr seid AUF KURS! ✅</div><p class="text-2xl mt-6">Ihr werdet voraussichtlich <span class="font-semibold">€${projected.toLocaleString('de-DE')}</span> haben – sogar €${Math.round(target - projected).toLocaleString('de-DE')} mehr als nötig. Mit Kindern und Hypothek ist das eine echte Leistung!</p></div>`;
+    html += `<div class="text-center"><div class="text-5xl font-bold text-emerald-600">Ihr seid AUF KURS! ✅</div><p class="text-2xl mt-6">Ihr werdet voraussichtlich <span class="font-semibold">€${projected.toLocaleString('de-DE')}</span> haben – sogar €${Math.round(projected - target).toLocaleString('de-DE')} mehr als nötig. Mit Kindern und Hypothek ist das eine echte Leistung!</p></div>`;
   } else {
     const annualFactor = (Math.pow(1.07, years) - 1) / 0.07;
     const extraMonthly = Math.ceil((behind / annualFactor) / 12);
@@ -106,7 +106,7 @@ function renderResults(age, targetAge, target, projected, behind, monthlySavings
             <p class="text-xs text-blue-700 mt-1 mb-3">25% S&P 500 / Nasdaq 100 / MSCI World / US Treasuries</p>
             <p class="text-4xl font-bold text-blue-600 mt-2">€${etfMonthlyRate.toLocaleString('de-DE')}</p>
             <p class="text-sm text-stone-600">monatlich</p>
-            <p class="text-xs text-blue-700 mt-2">→ Ziel erreicht (€${target.toLocaleString('de-DE')})</p>
+            <p class="text-xs text-blue-700 mt-2">→ Zusammen: Ziel (€${target.toLocaleString('de-DE')}) erreicht!</p>
           </div>
         </div>
       </div>`;
@@ -160,7 +160,7 @@ function drawChart(years, currentSavings, annualSavings, target, etfMonthlyRate 
       if (etfMonthlyRate && etfRate) {
         const etfMonthlyRateDecimal = Math.pow(1 + etfRate, 1/12) - 1;
         const etfMonths = y * 12;
-        const etfValue = etfMonthlyRate * 12 * (Math.pow(1 + etfMonthlyRateDecimal, etfMonths) - 1) / etfMonthlyRateDecimal;
+        const etfValue = etfMonthlyRate * ((Math.pow(1 + etfMonthlyRateDecimal, etfMonths) - 1) / etfMonthlyRateDecimal);
         etfData.push(Math.round(etfValue));
       }
     }
@@ -190,7 +190,7 @@ function drawChart(years, currentSavings, annualSavings, target, etfMonthlyRate 
     // Wenn ETF-Daten vorhanden, hinzufügen
     if (etfData.length > 0) {
       datasets.push({
-        label: 'ETF-Sparplan (8,5%)',
+        label: 'ETF-Zusatzplan (8,5%)',
         data: etfData,
         borderColor: 'rgb(59, 130, 246)',
         backgroundColor: 'rgba(59, 130, 246, 0.1)',
