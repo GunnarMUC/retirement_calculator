@@ -8,13 +8,16 @@ Damit Grok Code bei diesem längeren Projekt NIE den Context verliert:
 4. Bei jeder neuen Grok-Code-Session: "Lese PLAN.md und aktuelles Milestone"
 
 ## CURRENT MILESTONE (immer aktuell halten!)
-**Milestone 2 – ETF-Empfehlung hinzugefügt** ✅ (heute fertig)
-- 4. Empfehlung ergänzt: Dynamischer ETF-Sparplan mit 8,5% Rendite
+**Milestone 2 – ETF-Empfehlung erweitert** ✅ (heute fertig)
+- 4. Empfehlung: Dynamischer ETF-Sparplan mit 8,5% Rendite
 - 4 diversifizierte ETFs (25% je): S&P 500 / Nasdaq 100 / MSCI World / US Treasuries
 - Monatliche ETF-Sparrate basierend auf Versorgungslücke berechnet
-- Projektion zeigt, wie Ziel erreicht wird
-- Grid auf 2x2 Layout aktualisiert
-- Alle Berechnungen validiert
+- **Chart erweitert:** Zeigt jetzt 3 Linien wenn unterversorgt:
+  1. Aktuelle Projektion (7%)
+  2. Zielziel (konstante grüne Linie)
+  3. ETF-Sparplan Projektion (8,5%, blau)
+- Grid auf 2x2 Layout
+- Alle Berechnungen und Charts validiert
 
 **Milestone 3 – Final Delivery** (nächstes Ziel)
 - 100-Word Write-up
