@@ -121,85 +121,110 @@ function renderResults(age, targetAge, target, projected, behind, monthlySavings
   `;
   results.innerHTML = html;
 
-  // Chart zeichnen - ETF-Daten nur wenn unterversorgt
-  if (behind > 0) {
-    drawChart(years, currentSavings, annualSavings, target, etfMonthlyRate, 0.085);
-  } else {
-    drawChart(years, currentSavings, annualSavings, target);
-  }
+  // Chart zeichnen - mit setTimeout um sicherzustellen, dass Canvas existiert
+  setTimeout(() => {
+    if (behind > 0) {
+      drawChart(years, currentSavings, annualSavings, target, etfMonthlyRate, 0.085);
+    } else {
+      drawChart(years, currentSavings, annualSavings, target);
+    }
+  }, 100);
 }
 
 function drawChart(years, currentSavings, annualSavings, target, etfMonthlyRate = null, etfRate = null) {
-  if (chartInstance) chartInstance.destroy();
-  const ctx = document.getElementById('projectionChart').getContext('2d');
+  try {
+    const canvasElement = document.getElementById('projectionChart');
+    if (!canvasElement) {
+      console.error('Canvas element not found');
+      return;
+    }
 
-  const labels = [];
-  const projectedData = [];
-  const etfData = [];
-  
-  for (let y = 0; y <= years; y++) {
-    labels.push(`Jahr ${y}`);
-    const fvCurrent = currentSavings * Math.pow(1.07, y);
-    const fvFuture = annualSavings * ((Math.pow(1.07, y) - 1) / 0.07);
-    projectedData.push(Math.round(fvCurrent + fvFuture));
+    if (chartInstance) chartInstance.destroy();
+    const ctx = canvasElement.getContext('2d');
+    if (!ctx) {
+      console.error('Failed to get 2D context');
+      return;
+    }
+
+    const labels = [];
+    const projectedData = [];
+    const etfData = [];
     
-    // ETF-Sparplan Projektion: nur monatliche Sparrate (kein aktuelles Vermögen)
-    if (etfMonthlyRate && etfRate) {
-      const etfMonthlyRateDecimal = Math.pow(1 + etfRate, 1/12) - 1;
-      const etfMonths = y * 12;
-      const etfValue = etfMonthlyRate * 12 * (Math.pow(1 + etfMonthlyRateDecimal, etfMonths) - 1) / etfMonthlyRateDecimal;
-      etfData.push(Math.round(etfValue));
-    }
-  }
-
-  const targetData = new Array(years + 1).fill(target);
-
-  const datasets = [
-    {
-      label: 'Eure Projektion (7%)',
-      data: projectedData,
-      borderColor: 'rgb(245, 158, 11)',
-      backgroundColor: 'rgba(245, 158, 11, 0.1)',
-      tension: 0.1
-    },
-    {
-      label: 'Ziel-Nest-Egg',
-      data: targetData,
-      borderColor: 'rgb(34, 197, 94)',
-      backgroundColor: 'rgba(34, 197, 94, 0.1)',
-      borderDash: [5, 5],
-      tension: 0.1
-    }
-  ];
-
-  // Wenn ETF-Daten vorhanden, hinzufügen
-  if (etfData.length > 0) {
-    datasets.push({
-      label: 'ETF-Sparplan (8,5%)',
-      data: etfData,
-      borderColor: 'rgb(59, 130, 246)',
-      backgroundColor: 'rgba(59, 130, 246, 0.1)',
-      tension: 0.1
-    });
-  }
-
-  chartInstance = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: labels,
-      datasets: datasets
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        legend: { position: 'top' },
-        title: { display: true, text: 'Renten-Projektion über die Jahre' }
-      },
-      scales: {
-        y: { beginAtZero: true, ticks: { callback: value => '€' + value.toLocaleString('de-DE') } }
+    for (let y = 0; y <= years; y++) {
+      labels.push(`Jahr ${y}`);
+      const fvCurrent = currentSavings * Math.pow(1.07, y);
+      const fvFuture = annualSavings * ((Math.pow(1.07, y) - 1) / 0.07);
+      projectedData.push(Math.round(fvCurrent + fvFuture));
+      
+      // ETF-Sparplan Projektion: nur monatliche Sparrate (kein aktuelles Vermögen)
+      if (etfMonthlyRate && etfRate) {
+        const etfMonthlyRateDecimal = Math.pow(1 + etfRate, 1/12) - 1;
+        const etfMonths = y * 12;
+        const etfValue = etfMonthlyRate * 12 * (Math.pow(1 + etfMonthlyRateDecimal, etfMonths) - 1) / etfMonthlyRateDecimal;
+        etfData.push(Math.round(etfValue));
       }
     }
-  });
+
+    const targetData = new Array(years + 1).fill(target);
+
+    const datasets = [
+      {
+        label: 'Eure Projektion (7%)',
+        data: projectedData,
+        borderColor: 'rgb(245, 158, 11)',
+        backgroundColor: 'rgba(245, 158, 11, 0.1)',
+        tension: 0.1,
+        borderWidth: 2
+      },
+      {
+        label: 'Ziel-Nest-Egg',
+        data: targetData,
+        borderColor: 'rgb(34, 197, 94)',
+        backgroundColor: 'rgba(34, 197, 94, 0.1)',
+        borderDash: [5, 5],
+        tension: 0.1,
+        borderWidth: 2
+      }
+    ];
+
+    // Wenn ETF-Daten vorhanden, hinzufügen
+    if (etfData.length > 0) {
+      datasets.push({
+        label: 'ETF-Sparplan (8,5%)',
+        data: etfData,
+        borderColor: 'rgb(59, 130, 246)',
+        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+        tension: 0.1,
+        borderWidth: 2
+      });
+    }
+
+    if (typeof Chart === 'undefined') {
+      console.error('Chart.js not loaded');
+      return;
+    }
+
+    chartInstance = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: datasets
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+          legend: { position: 'top' },
+          title: { display: true, text: 'Renten-Projektion über die Jahre' }
+        },
+        scales: {
+          y: { beginAtZero: true, ticks: { callback: value => '€' + value.toLocaleString('de-DE') } }
+        }
+      }
+    });
+  } catch (error) {
+    console.error('Error rendering chart:', error);
+  }
 }
 
 function resetForm() {
