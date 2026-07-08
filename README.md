@@ -1,3 +1,5 @@
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue)](LICENSE)n
+
 # Marcus Retirement Tool – Are We Okay?
 
 [![Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://your-gh-pages-link-here)
